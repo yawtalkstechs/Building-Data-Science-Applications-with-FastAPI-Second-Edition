@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, ValidationError, root_validator
+from pydantic import BaseModel, EmailStr, ValidationError, model_validator
 
 
 class UserRegistration(BaseModel):
@@ -6,13 +6,13 @@ class UserRegistration(BaseModel):
     password: str
     password_confirmation: str
 
-    @root_validator()
-    def passwords_match(cls, values):
-        password = values.get("password")
-        password_confirmation = values.get("password_confirmation")
-        if password != password_confirmation:
-            raise ValueError("Passwords don't match")
-        return values
+    @model_validator(mode='after')
+    def passwords_match(self):
+        password = self.password
+        password_confirmation = self.password_confirmation
+        if password is not None and password_confirmation is not None and password != password_confirmation:
+            raise ValueError('passwords do not match')
+        return self
 
 
 # Passwords not matching
