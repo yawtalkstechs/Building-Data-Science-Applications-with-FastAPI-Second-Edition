@@ -40,6 +40,6 @@ person = Person(
     },
 )
 
-person_dict = person.dict()
+person_dict = person.model_dump()
 print(person_dict["first_name"])  # "John"
 print(person_dict["address"]["street_address"])  # "12 Squirell Street"
