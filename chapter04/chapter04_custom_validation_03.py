@@ -1,10 +1,10 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 
 class Model(BaseModel):
     values: list[int]
 
-    @validator("values", pre=True)
+    @field_validator("values", mode="before")
     def split_string_values(cls, v):
         if isinstance(v, str):
             return v.split(",")
