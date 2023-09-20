@@ -40,13 +40,13 @@ person = Person(
     },
 )
 
-person_include = person.dict(include={"first_name", "last_name"})
+person_include = person.model_dump(include={"first_name", "last_name"})
 print(person_include)  # {"first_name": "John", "last_name": "Doe"}
 
-person_exclude = person.dict(exclude={"birthdate", "interests"})
+person_exclude = person.model_dump(exclude={"birthdate", "interests"})
 print(person_exclude)
 
-person_nested_include = person.dict(
+person_nested_include = person.model_dump(
     include={
         "first_name": ...,
         "last_name": ...,
